@@ -23,15 +23,15 @@ class School {
     return this._lecturers
   }
 
-  addArea(area: Area) {
+  set area(area: Area) {
     this._areas.push(area)
   }
 
   removeArea(areaName: string) {
-    this._areas = this._areas.filter(area => area.getName() !== areaName)
+    this._areas = this._areas.filter(area => area.name !== areaName)
   }
 
-  addLecturer(lecturer: Lecturer) {
+  set lecturer(lecturer: Lecturer) {
     this._lecturers.push(lecturer)
   }
 
@@ -49,24 +49,24 @@ class Area {
     this._name = name
   }
 
-  getName() {
+  get name() {
     return this._name
   }
 
-  getLevels(): Level[] {
+  get levels(): Level[] {
     return this._levels
   }
 
   getLevelByName(levelName: string): Level | undefined {
-    return this._levels.find(level => level.getName() === levelName)
+    return this._levels.find(level => level.name === levelName)
   }
 
-  addLevel(level: Level) {
+  set level(level: Level) {
     this._levels.push(level)
   }
 
   removeLevel(levelName: string) {
-    this._levels = this._levels.filter(level => level.getName() !== levelName)
+    this._levels = this._levels.filter(level => level.name !== levelName)
   }
 }
 
@@ -82,28 +82,28 @@ class Level {
     this._description = description
   }
 
-  getGroups(): Group[] {
+  get groups(): Group[] {
     return this._groups
   }
 
-  getGroupByAreaName(groupAreaName: string): Group | undefined {
-    return this._groups.find(group => group.getArea().getName() === groupAreaName)
-  }
-
-  getName(): string {
+  get name(): string {
     return this._name
   }
 
-  getDescription(): string {
+  get description(): string {
     return this._description
   }
 
-  addGroup(group: Group) {
+  set group(group: Group) {
     this._groups.push(group)
   }
 
+  getGroupByAreaName(groupAreaName: string): Group | undefined {
+    return this._groups.find(group => group.area.name === groupAreaName)
+  }
+
   removeGroupByDirectionName(groupDirectionName: string) {
-    this._groups = this._groups.filter(group => group.getDirectionName() !== groupDirectionName)
+    this._groups = this._groups.filter(group => group.directionName !== groupDirectionName)
   }
 }
 
@@ -121,31 +121,31 @@ class Group {
     this._levelName = levelName
   }
 
-  getArea(): Area {
+  get area(): Area {
     return this._area
   }
 
-  getStatus(): string {
+  get status(): string {
     return this._status
   }
 
-  getStudents(): Student[] {
+  get students(): Student[] {
     return this._students
+  }
+
+  get directionName(): string {
+    return this._directionName
+  }
+
+  get levelName(): string {
+    return this._levelName
   }
 
   getStudentByFullName(fullName: string): Student | undefined {
     return this._students.find(student => student.fullName === fullName)
   }
 
-  getDirectionName(): string {
-    return this._directionName
-  }
-
-  getLevelName(): string {
-    return this._levelName
-  }
-
-  addStudent(student: Student) {
+  set student(student: Student) {
     this._students.push(student)
   }
 
@@ -157,7 +157,7 @@ class Group {
     return true
   }
 
-  setsStatus(status: string) {
+  set status(status: string) {
     this._status = status
   }
 
@@ -215,11 +215,11 @@ class Student {
     return (averageGrade + attendancePercentage) / 2
   }
 
-  setGrade(workName: string, mark: number) {
-    this._grades.push({ workName, mark })
+  set grade(grade: Grade) {
+    this._grades.push(grade)
   }
 
-  setVisit(lesson: string, date: Date) {
-    this._visits.push({ lesson, date })
+  set visit(visit: Visit) {
+    this._visits.push(visit)
   }
 }
