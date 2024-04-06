@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext.Array", "DOM", "ESNext"]
+    "lib": ["ESNext.Array", "DOM", "ESNext", "dom", "es2018"]
   },
   "exclude": ["completed"]
 }
